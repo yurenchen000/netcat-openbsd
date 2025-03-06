@@ -44,6 +44,11 @@ define Build/Configure
 	)
 endef
 
+
+TARGET_CFLAGS += '-DDEBIAN_VERSION=\"$(PKG_VERSION)-$(PKG_RELEASE)chen0\"'
+#TARGET_CFLAGS += '-DDEBIAN_VERSION=\"1.228-1chen1\"'
+#EXTRA_CFLAGS += '-DDEBIAN_VERSION=\"1.228-1chen2\"'
+
 #define Build/Compile
 #  $(MAKE) -C $(PKG_BUILD_DIR)/usr.bin/nc \
 #    CC="$(TARGET_CC)" \
