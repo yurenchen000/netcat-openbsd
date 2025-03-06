@@ -61,5 +61,30 @@ define Package/netcat-openbsd/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/nc $(1)/usr/bin/nc.openbsd
 endef
 
-#echo $(call BuildPackage,netcat-openbsd)
+
+define Package/netcat-openbsd/config
+  source "$(SOURCE)/Config.in"
+endef
+
+## override bin/nc
+ifeq ($(CONFIG_NETCAT_OPENBSD_OVERRIDE),y)
+
+define Package/netcat-openbsd/postinst
+#!/bin/sh
+if [ -e $${IPKG_INSTROOT}/usr/bin/nc ]; then
+  rm -rf $${IPKG_INSTROOT}/usr/bin/nc;
+fi
+ln -s ./nc.openbsd $${IPKG_INSTROOT}/usr/bin/nc
+endef
+
+define Package/netcat-openbsd/postrm
+#!/bin/sh
+rm $${IPKG_INSTROOT}/usr/bin/nc
+ln -s ../../bin/busybox $${IPKG_INSTROOT}/usr/bin/nc
+$${IPKG_INSTROOT}/usr/bin/nc 2>&1 | grep 'applet not found' > /dev/null 2>&1 && rm $${IPKG_INSTROOT}/usr/bin/nc
+exit 0
+endef
+
+endif
+
 $(eval $(call BuildPackage,netcat-openbsd))
