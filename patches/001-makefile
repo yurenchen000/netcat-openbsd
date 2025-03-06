@@ -14,8 +14,8 @@
 -.include <bsd.prog.mk>
 +LIBS=  -lresolv -lbsd
 +OBJS=  $(SRCS:.c=.o)
-+CFLAGS=  -g -O2
-+LDFLAGS=  -Wl,--no-add-needed
++#CFLAGS=  -g -O2
++#LDFLAGS=  -Wl,--no-add-needed
 +#CC=arm-linux-gcc
 +all: nc
 +nc: $(OBJS)

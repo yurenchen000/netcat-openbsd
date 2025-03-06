@@ -4,7 +4,7 @@
   * *Hobbit* <hobbit@avian.org>.
   */
  
-+#define DEBIAN_VERSION "1.228-1chen"
++//#define DEBIAN_VERSION "1.228-1chen"
 +#define _GNU_SOURCE
 +
  #include <sys/types.h>
