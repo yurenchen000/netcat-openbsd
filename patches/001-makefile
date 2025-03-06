@@ -1,0 +1,28 @@
+--- netcat-openbsd-1.228-1.orig/Makefile 08:43:46.000000000 +0800
++++ netcat-openbsd-1.228-1/Makefile	2025-03-06 02:44:11.062471131 +0800
+@@ -2,7 +2,22 @@
+ 
+ PROG=	nc
+ SRCS=	netcat.c atomicio.c socks.c
+-LDADD+= -ltls -lssl -lcrypto
+-DPADD+=  ${LIBTLS} ${LIBSSL} ${LIBCRYPTO}
++## LDADD+= -ltls -lssl -lcrypto
++## DPADD+=  ${LIBTLS} ${LIBSSL} ${LIBCRYPTO}
++## 
++## .include <bsd.prog.mk>
+ 
+-.include <bsd.prog.mk>
++LIBS=  -lresolv -lbsd
++OBJS=  $(SRCS:.c=.o)
++CFLAGS=  -g -O2
++LDFLAGS=  -Wl,--no-add-needed
++#CC=arm-linux-gcc
++all: nc
++nc: $(OBJS)
++	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS) -o nc
++
++$(OBJS): %.o: %.c
++	$(CC) $(CFLAGS) -c $< -o $@
++
++clean:
++	rm -f $(OBJS) nc
