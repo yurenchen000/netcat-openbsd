@@ -30,7 +30,7 @@ define Package/netcat-openbsd
   CATEGORY:=Network
   TITLE:=Netcat OpenBSD variant
   DEPENDS:=+libbsd
-  URL:=https://ftp.openbsd.org/pub/OpenBSD/OpenBSD/7.3/src.tar.gz
+  URL:=$(PKG_SOURCE_URL)
 endef
 
 define Package/netcat-openbsd/description
