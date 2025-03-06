@@ -1,0 +1,5 @@
+config NETCAT_OPENBSD_OVERRIDE
+	bool "override/install to /usr/bin/nc"
+	depends on PACKAGE_netcat-openbsd
+	help
+	  Say Y, if you want override/install to /usr/bin/nc
